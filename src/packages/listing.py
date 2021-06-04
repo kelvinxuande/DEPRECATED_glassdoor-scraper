@@ -1,9 +1,6 @@
 # Import necessary libraries
 # standard libraries
-import json
-import os
 from time import time
-from sys import stdout
 
 from packages.common import requestAndParse
 
@@ -14,7 +11,7 @@ def extract_listingBanner(listing_soup):
         listing_bannerGroup = listing_soup.find("div", class_="css-ur1szg e11nt52q0")
         listing_bannerGroup_valid = True
     except:
-        print("[ERROR] error occurred in function extract_listingBanner")
+        print("[ERROR] Error occurred in function extract_listingBanner")
         companyName = "NA"
         company_starRating = "NA"
         company_offeredRole = "NA"
@@ -63,18 +60,22 @@ def extract_listingDesc(listing_soup):
 
         listing_jobDesc = " ".join(extract_listingDesc_tmpList)
     except:
-        print("[ERROR] error occurred in function extract_listingDesc")
+        print("[ERROR] Error occurred in function extract_listingDesc")
         listing_jobDesc = "NA"
 
     return listing_jobDesc
 
 
 def extract_listing(url):
-    listing_soup, requested_url = requestAndParse(url)
-    companyName, company_starRating, company_offeredRole, company_roleLocation = extract_listingBanner(listing_soup)
-    listing_jobDesc = extract_listingDesc(listing_soup)
+    try:
+        listing_soup, requested_url = requestAndParse(url)
+        companyName, company_starRating, company_offeredRole, company_roleLocation = extract_listingBanner(listing_soup)
+        listing_jobDesc = extract_listingDesc(listing_soup)
 
-    return (companyName, company_starRating, company_offeredRole, company_roleLocation, listing_jobDesc, requested_url)
+        return (companyName, company_starRating, company_offeredRole, company_roleLocation, listing_jobDesc, requested_url)
+    except Exception as e:
+        print("[ERROR] Error occurred in extract_listing: either requested url: {} is unavailable, or errors occured further below.".format(url))
+        return ("NA", "NA", "NA", "NA", "NA", "NA")
 
 
 if __name__ == "__main__":

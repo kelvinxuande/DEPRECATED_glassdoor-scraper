@@ -2,8 +2,10 @@
 # standard libraries
 import json
 import os
-from sys import stdout
+from datetime import datetime
 from time import time
+import csv
+from tqdm import tqdm
 # custom
 from packages.common import requestAndParse
 from packages.page import extract_maximums, extract_listings
@@ -32,6 +34,24 @@ def format_url(base_url, page_index):
     return formatted_url
 
 
+def fileWriter(listOrTuple, output_fileName):
+    if type(listOrTuple) == type(list()):
+        # format and write to file
+        with open(output_fileName,'a', newline='') as out:
+            csv_out=csv.writer(out)
+            for row in listOrTuple:
+                try:
+                    csv_out.writerow(row)
+                    # can also do csv_out.writerows(data) instead of the for loop
+                except Exception as e:
+                    print("[WARN] In filewriter: {}".format(e))
+    else:
+        # format and write to file
+        with open(output_fileName,'a', newline='') as out:
+            csv_out=csv.writer(out)
+            csv_out.writerow(listOrTuple)
+
+
 if __name__ == "__main__":
     # initialise variables:
     page_index = 1
@@ -39,6 +59,14 @@ if __name__ == "__main__":
 
     # load user defined configurations
     base_url, target_num = load_configs(path="data\config.json")
+
+    # initialise file and directory:
+    if not os.path.exists('output'):
+        os.makedirs('output')
+    now = datetime.now() # current date and time
+    output_fileName = "./output/output_" + now.strftime("%d-%m-%Y") + ".csv"
+    csv_header = ("companyName", "company_starRating", "company_offeredRole", "company_roleLocation", "listing_jobDesc", "requested_url")
+    fileWriter(listOrTuple=csv_header, output_fileName=output_fileName)
 
     # extract maximum number of jobs
     maxJobs, maxPages = extract_maximums(base_url)
@@ -49,25 +77,27 @@ if __name__ == "__main__":
 
     formatted_url = base_url
     while total_listingCount <= target_num:
-        print("[INFO] Processing page index: {}\n".format(page_index))
+        list_returnedTuple = []
 
         # format links
         formatted_url = format_url(base_url, page_index)
-        print(formatted_url)
+
+        print("\n[INFO] Processing page index {}: {}".format(page_index, formatted_url))
 
         page_soup,_ = requestAndParse(formatted_url)
         listings_set, jobCount = extract_listings(page_soup)
-        print("[INFO] Found {} links in page: {}\n".format(jobCount, page_index))
+        print("[INFO] Found {} links in page index {}".format(jobCount, page_index))
 
-        for listing_url in listings_set:
+        for listing_url in tqdm(listings_set):
             # to implement cache here
 
             returned_tuple = extract_listing(listing_url)
-            print(returned_tuple)
-            
-        # format and write to file
+            list_returnedTuple.append(returned_tuple)
+            # print(returned_tuple)
+
+        fileWriter(listOrTuple=list_returnedTuple, output_fileName=output_fileName)
 
         # done with page, moving onto next page
         total_listingCount = total_listingCount + jobCount
-        print("\n[INFO] Finished processing page index: {}; Total number of jobs processed: {}".format(page_index, total_listingCount))
+        print("[INFO] Finished processing page index {}; Total number of jobs processed: {}".format(page_index, total_listingCount))
         page_index = page_index + 1

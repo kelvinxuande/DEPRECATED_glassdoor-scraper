@@ -1,11 +1,6 @@
 # Import necessary libraries
 # standard libraries
 import re
-import csv
-import os
-# 3rd-party libraries
-from urllib.request import urlopen, Request
-from bs4 import BeautifulSoup as soup
 
 from packages.common import requestAndParse
 

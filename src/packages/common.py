@@ -1,8 +1,5 @@
 # Import necessary libraries
 # standard libraries
-import re
-import csv
-import os
 
 # 3rd-party libraries
 from urllib.request import urlopen, Request

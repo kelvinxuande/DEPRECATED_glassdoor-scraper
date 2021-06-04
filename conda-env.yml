@@ -7,7 +7,7 @@ dependencies:
   - brotlipy=0.7.0=py36h2bbff1b_1003
   - bs4=4.9.3=hd3eb1b0_0
   - ca-certificates=2021.5.25=haa95532_1
-  - certifi=2020.12.5=py36haa95532_0
+  - certifi=2021.5.30=py36haa95532_0
   - cffi=1.14.5=py36hcd4344a_0
   - chardet=4.0.0=py36haa95532_1003
   - cryptography=3.4.7=py36h71e12ea_0
@@ -27,6 +27,7 @@ dependencies:
   - six=1.15.0=py36haa95532_0
   - soupsieve=2.2.1=pyhd3eb1b0_0
   - sqlite=3.35.4=h2bbff1b_0
+  - tqdm=4.59.0=pyhd3eb1b0_1
   - typing_extensions=3.7.4.3=pyha847dfd_0
   - urllib3=1.26.4=pyhd3eb1b0_0
   - vc=14.2=h21ff451_1
