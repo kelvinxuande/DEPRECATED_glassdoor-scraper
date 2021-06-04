@@ -4,9 +4,9 @@ import json
 import os
 from sys import stdout
 from time import time
-# custom functions
-from functions.commonFunctions import requestAndParse
-from functions.pageFunctions import extract_maximums, extract_listings
+# custom
+from packages.common import requestAndParse
+from packages.page import extract_maximums, extract_listings
 
 
 def load_configs(path):

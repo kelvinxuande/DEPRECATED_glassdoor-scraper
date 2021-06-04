@@ -6,7 +6,8 @@ import os
 # 3rd-party libraries
 from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup as soup
-from commonFunctions import requestAndParse
+
+from packages.common import requestAndParse
 
 
 def format_url(page_index, base_url):

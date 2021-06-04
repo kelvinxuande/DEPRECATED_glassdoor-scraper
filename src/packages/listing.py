@@ -4,8 +4,8 @@ import json
 import os
 from time import time
 from sys import stdout
-# custom functions
-from pageFunctions import requestAndParse
+
+from packages.common import requestAndParse
 
 
 def extract_listingBanner(listing_soup):
