@@ -23,14 +23,22 @@ def extract_listingBanner(listing_soup):
     if listing_bannerGroup_valid:
 
         try:
-            companyName = listing_bannerGroup.find("div", class_="css-16nw49e e11nt52q1").getText().replace(company_starRating.getText(),'')
-        except:
-            companyName = "NA"
-
-        try:
-            company_starRating = listing_bannerGroup.find("span", class_="css-1pmc6te e11nt52q4").getText().replace("★", "")
+            company_starRating = listing_bannerGroup.find("span", class_="css-1pmc6te e11nt52q4").getText()
         except:
             company_starRating = "NA"
+
+        if company_starRating != "NA":
+            try:
+                companyName = listing_bannerGroup.find("div", class_="css-16nw49e e11nt52q1").getText().replace(company_starRating,'')
+            except:
+                companyName = "NA"
+            # company_starRating.replace("★", "")
+            company_starRating = company_starRating[:-1]
+        else:
+            try:
+                companyName = listing_bannerGroup.find("div", class_="css-16nw49e e11nt52q1").getText()
+            except:
+                companyName = "NA"
 
         try:
             company_offeredRole = listing_bannerGroup.find("div", class_="css-17x2pwl e11nt52q6").getText()
@@ -66,7 +74,7 @@ def extract_listing(url):
     companyName, company_starRating, company_offeredRole, company_roleLocation = extract_listingBanner(listing_soup)
     listing_jobDesc = extract_listingDesc(listing_soup)
 
-    return (companyName, company_starRating, company_offeredRole, company_roleLocation, listing_jobDesc)
+    return (companyName, company_starRating, company_offeredRole, company_roleLocation, listing_jobDesc, url)
 
 
 if __name__ == "__main__":

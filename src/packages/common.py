@@ -6,11 +6,17 @@ import os
 
 # 3rd-party libraries
 from urllib.request import urlopen, Request
+from urllib.parse import urlparse
 from bs4 import BeautifulSoup as soup
 
 
 # Function to request page html from given URL
 def requestAndParse(requested_url):
+
+    # correct url first:
+    if not urlparse(requested_url).scheme:
+        requested_url = "https://" + requested_url
+
     try:
         # define headers to be provided for request authentication
         headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) ' 

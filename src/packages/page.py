@@ -60,7 +60,6 @@ def extract_listings(page_soup):
     jobCount = len(listings_set)
 
     try:
-        assert len(listings_list) != 0
         assert jobCount != 0
     except Exception as e:
         print(e)
