@@ -70,11 +70,11 @@ def extract_listingDesc(listing_soup):
 
 
 def extract_listing(url):
-    listing_soup = requestAndParse(url)
+    listing_soup, requested_url = requestAndParse(url)
     companyName, company_starRating, company_offeredRole, company_roleLocation = extract_listingBanner(listing_soup)
     listing_jobDesc = extract_listingDesc(listing_soup)
 
-    return (companyName, company_starRating, company_offeredRole, company_roleLocation, listing_jobDesc, url)
+    return (companyName, company_starRating, company_offeredRole, company_roleLocation, listing_jobDesc, requested_url)
 
 
 if __name__ == "__main__":

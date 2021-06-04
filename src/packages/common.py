@@ -10,12 +10,16 @@ from urllib.parse import urlparse
 from bs4 import BeautifulSoup as soup
 
 
-# Function to request page html from given URL
-def requestAndParse(requested_url):
-
-    # correct url first:
+def urlCheck(requested_url):
     if not urlparse(requested_url).scheme:
         requested_url = "https://" + requested_url
+    return requested_url
+
+
+# function to request page html from given URL
+def requestAndParse(requested_url):
+
+    requested_url = urlCheck(requested_url)
 
     try:
         # define headers to be provided for request authentication
@@ -35,6 +39,6 @@ def requestAndParse(requested_url):
 
         page_soup = soup(page_html, "html.parser")
 
-        return page_soup    # can return page_html also
+        return page_soup, requested_url    # alternatively, return page_html
     except Exception as e:
         print(e)

@@ -26,7 +26,7 @@ def format_url(page_index, base_url):
 # Function to acquire the maximum number of jobs, only applicable for the base/ first html
 def extract_maximums(base_url):
 
-    page_soup = requestAndParse(base_url)
+    page_soup,_ = requestAndParse(base_url)
 
     tmp_match_1 = [item for item in page_soup.find_all("p") if "data-test" in item.attrs][0]
     tmp_match_2 = [item for item in page_soup.find_all("div") if "data-test" in item.attrs][-1]

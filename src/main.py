@@ -55,11 +55,13 @@ if __name__ == "__main__":
         formatted_url = format_url(base_url, page_index)
         print(formatted_url)
 
-        page_soup = requestAndParse(formatted_url)
+        page_soup,_ = requestAndParse(formatted_url)
         listings_set, jobCount = extract_listings(page_soup)
         print("[INFO] Found {} links in page: {}\n".format(jobCount, page_index))
 
         for listing_url in listings_set:
+            # to implement cache here
+
             returned_tuple = extract_listing(listing_url)
             print(returned_tuple)
             
