@@ -52,16 +52,31 @@ def extract_listingBanner(listing_soup):
 
 def extract_listingDesc(listing_soup):
     extract_listingDesc_tmpList = []
+    listing_jobDesc_raw = None
+
     try:
         listing_jobDesc_raw = listing_soup.find("div", id="JobDescriptionContainer")
+        if type(listing_jobDesc_raw) != type(None):
+            JobDescriptionContainer_found = True
+        else:
+            JobDescriptionContainer_found = False
+            listing_jobDesc = "NA"
+    except Exception as e:
+        print("[ERROR] {} in extract_listingDesc".format(e))
+        JobDescriptionContainer_found = False
+        listing_jobDesc = "NA"
+
+    # form up listing_jobDesc
+    if JobDescriptionContainer_found:
         jobDesc_items = listing_jobDesc_raw.findAll('li')
         for jobDesc_item in jobDesc_items:
             extract_listingDesc_tmpList.append(jobDesc_item.text)
 
         listing_jobDesc = " ".join(extract_listingDesc_tmpList)
-    except:
-        print("[ERROR] Error occurred in function extract_listingDesc")
-        listing_jobDesc = "NA"
+
+        if len(listing_jobDesc) <= 10:
+            # if listing_jobDesc isn't long enough, cast a wider net
+            listing_jobDesc = listing_jobDesc_raw.getText()
 
     return listing_jobDesc
 
