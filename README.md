@@ -25,9 +25,9 @@ Please refer to requirements.txt for list of requirements.
 4. Loop conditions control the 'movement' from result page-to-page.
 
 ## Definitions
-![](https://github.com/kelvinxuande/glassdoor-job-scrapper/blob/master/img/definition_%201.PNG)
+![](https://github.com/kelvinxuande/glassdoor-scraper/blob/master/docs/definitions-1.png)
 
-![](https://github.com/kelvinxuande/glassdoor-job-scrapper/blob/master/img/definition_%202.png)
+![](https://github.com/kelvinxuande/glassdoor-scraper/blob/master/docs/definitions-2.png)
 
 ## Running tests and deployment
 Original **configuration.json** file has been set to run tests.
@@ -40,7 +40,7 @@ Original **configuration.json** file has been set to run tests.
 5. Modify the **configuration.json** file as necessary for deployment.</br>
 The following gif shows how a base_url can be obtained.
 
-![](https://github.com/kelvinxuande/glassdoor-job-scrapper/blob/master/img/basehtml.gif)
+![](https://github.com/kelvinxuande/glassdoor-scraper/blob/master/docs/baseHtml.gif)
 
 ## Built With
 
