@@ -5,19 +5,6 @@ import re
 from packages.common import requestAndParse
 
 
-def format_url(page_index, base_url):
-    if page_index == 2:
-        formatted_url = base_url[:-4:] + "_IP2.htm"
-    elif page_index < 10:
-        formatted_url = base_url[:-5:] + '{}.htm'.format(page_index)
-    elif page_index < 100:
-        formatted_url = base_url[:-6:] + '{}.htm'.format(page_index)
-    else:   # maximum page number = 999
-        formatted_url = base_url[:-7:] + '{}.htm'.format(page_index)
-
-    return formatted_url
-
-
 # Function to acquire the maximum number of jobs, only applicable for the base/ first html
 def extract_maximums(base_url):
 

@@ -67,15 +67,20 @@ def extract_listingDesc(listing_soup):
 
 
 def extract_listing(url):
+    request_success = False
     try:
         listing_soup, requested_url = requestAndParse(url)
+        request_success = True
+    except Exception as e:
+        print("[ERROR] Error occurred in extract_listing, requested url: {} is unavailable.".format(url))
+        return ("NA", "NA", "NA", "NA", "NA", "NA")
+
+    if request_success:
         companyName, company_starRating, company_offeredRole, company_roleLocation = extract_listingBanner(listing_soup)
         listing_jobDesc = extract_listingDesc(listing_soup)
 
         return (companyName, company_starRating, company_offeredRole, company_roleLocation, listing_jobDesc, requested_url)
-    except Exception as e:
-        print("[ERROR] Error occurred in extract_listing: either requested url: {} is unavailable, or errors occured further below.".format(url))
-        return ("NA", "NA", "NA", "NA", "NA", "NA")
+
 
 
 if __name__ == "__main__":
