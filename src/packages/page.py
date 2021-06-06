@@ -9,7 +9,7 @@ except ModuleNotFoundError:
     from common import requestAndParse
 
 
-# extract maximum number of jobs stated, only applicable for the "base" html
+# extract maximum number of jobs stated, only applicable for the "base" url
 def extract_maximums(base_url):
     page_soup,_ = requestAndParse(base_url)
 
