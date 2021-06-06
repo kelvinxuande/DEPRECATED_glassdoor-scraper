@@ -1,9 +1,12 @@
 name: glassdoor-scraper
 channels:
+  - conda-forge
   - defaults
 dependencies:
+  - ansicon=1.89.0=py36ha15d459_3
   - attrs=21.2.0=pyhd3eb1b0_0
   - beautifulsoup4=4.9.3=pyha847dfd_0
+  - blessed=1.18.0=py36ha15d459_0
   - brotlipy=0.7.0=py36h2bbff1b_1003
   - bs4=4.9.3=hd3eb1b0_0
   - ca-certificates=2021.5.25=haa95532_1
@@ -11,27 +14,31 @@ dependencies:
   - cffi=1.14.5=py36hcd4344a_0
   - chardet=4.0.0=py36haa95532_1003
   - cryptography=3.4.7=py36h71e12ea_0
+  - enlighten=1.10.1=pyhd8ed1ab_0
   - idna=2.10=pyhd3eb1b0_0
   - importlib-metadata=3.10.0=py36haa95532_0
   - importlib_metadata=3.10.0=hd3eb1b0_0
+  - jinxed=1.1.0=py36ha15d459_0
   - jsonschema=3.2.0=py_2
   - openssl=1.1.1k=h2bbff1b_0
   - pip=21.1.1=py36haa95532_0
+  - prefixed=0.3.2=pyhd8ed1ab_0
   - pycparser=2.20=py_2
   - pyopenssl=20.0.1=pyhd3eb1b0_1
   - pyrsistent=0.17.3=py36he774522_0
   - pysocks=1.7.1=py36haa95532_0
   - python=3.6.13=h3758d61_0
+  - python_abi=3.6=1_cp36m
   - requests=2.25.1=pyhd3eb1b0_0
   - setuptools=52.0.0=py36haa95532_0
   - six=1.15.0=py36haa95532_0
   - soupsieve=2.2.1=pyhd3eb1b0_0
   - sqlite=3.35.4=h2bbff1b_0
-  - tqdm=4.59.0=pyhd3eb1b0_1
   - typing_extensions=3.7.4.3=pyha847dfd_0
   - urllib3=1.26.4=pyhd3eb1b0_0
   - vc=14.2=h21ff451_1
   - vs2015_runtime=14.27.29016=h5e58377_2
+  - wcwidth=0.2.5=py_0
   - wheel=0.36.2=pyhd3eb1b0_0
   - win_inet_pton=1.1.0=py36haa95532_0
   - wincertstore=0.2=py36h7fe50ca_0
