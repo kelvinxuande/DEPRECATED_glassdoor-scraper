@@ -1,15 +1,16 @@
 # Import necessary libraries
+# standard libraries
 import re
 from time import time
+# 3rd-party libraries
 try:
     from packages.common import requestAndParse
 except ModuleNotFoundError:
     from common import requestAndParse
 
 
-# Function to acquire the maximum number of jobs, only applicable for the base/ first html
+# extract maximum number of jobs stated, only applicable for the "base" html
 def extract_maximums(base_url):
-
     page_soup,_ = requestAndParse(base_url)
 
     tmp_match_1 = [item for item in page_soup.find_all("p") if "data-test" in item.attrs][0]
@@ -30,6 +31,7 @@ def extract_maximums(base_url):
     return(int(maxJobs), int(maxPages))
 
 
+# extract listing urls
 def extract_listings(page_soup):
     # this is slower but more robust:
     # get all links regardless of type and extract those that match

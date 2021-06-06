@@ -5,23 +5,38 @@ import os
 from datetime import datetime
 from time import time
 import csv
+# 3rd-party libraries
 import enlighten
-# custom
+# custom functions
 from packages.common import requestAndParse
 from packages.page import extract_maximums, extract_listings
 from packages.listing import extract_listing
 
 
+# loads user defined parameters
 def load_configs(path):
     with open(path) as config_file:
         configurations = json.load(config_file)
 
     base_url = configurations['base_url']
     target_num = int(configurations["target_num"])
-
     return base_url, target_num
 
 
+# appends list of tuples in specified output csv file
+# a tuple is written as a single row in csv file 
+def fileWriter(listOfTuples, output_fileName):
+    with open(output_fileName,'a', newline='') as out:
+        csv_out=csv.writer(out)
+        for row_tuple in listOfTuples:
+            try:
+                csv_out.writerow(row_tuple)
+                # can also do csv_out.writerows(data) instead of the for loop
+            except Exception as e:
+                print("[WARN] In filewriter: {}".format(e))
+
+
+# updates url according to the page_index desired
 def update_url(prev_url, page_index):
     if page_index == 1:
         prev_substring = ".htm"
@@ -34,23 +49,10 @@ def update_url(prev_url, page_index):
     return new_url
 
 
-def fileWriter(listOfTuples, output_fileName):
-    with open(output_fileName,'a', newline='') as out:
-        csv_out=csv.writer(out)
-        for row_tuple in listOfTuples:
-            try:
-                csv_out.writerow(row_tuple)
-                # can also do csv_out.writerows(data) instead of the for loop
-            except Exception as e:
-                print("[WARN] In filewriter: {}".format(e))
-
-
 if __name__ == "__main__":
-
-    # load user defined configurations
     base_url, target_num = load_configs(path="data\config.json")
 
-    # initialise file and directory:
+    # initialises output directory and file
     if not os.path.exists('output'):
         os.makedirs('output')
     now = datetime.now() # current date and time
@@ -58,22 +60,21 @@ if __name__ == "__main__":
     csv_header = [("companyName", "company_starRating", "company_offeredRole", "company_roleLocation", "listing_jobDesc", "requested_url")]
     fileWriter(listOfTuples=csv_header, output_fileName=output_fileName)
 
-    # extract maximum number of jobs
     maxJobs, maxPages = extract_maximums(base_url)
     # print("[INFO] Maximum number of jobs in range: {}, number of pages in range: {}".format(maxJobs, maxPages))
     if (target_num >= maxJobs):
         print("[ERROR] Target number larger than maximum number of jobs. Exiting program...\n")
         os._exit(0)
 
-    # initialise enlighten manager
-    manager = enlighten.get_manager()
-    progress_outer = manager.counter(total=target_num, desc="Total Listings scraped", unit="TLP", color="green", leave=False)
+    # initialises enlighten_manager
+    enlighten_manager = enlighten.get_manager()
+    progress_outer = enlighten_manager.counter(total=target_num, desc="Total progress", unit="listings", color="green", leave=False)
 
     # initialise variables
     page_index = 1
     total_listingCount = 0
 
-    # initialise prev_url as base_url
+    # initialises prev_url as base_url
     prev_url = base_url
 
     while total_listingCount <= target_num:
@@ -83,7 +84,7 @@ if __name__ == "__main__":
         new_url = update_url(prev_url, page_index)
         page_soup,_ = requestAndParse(new_url)
         listings_set, jobCount = extract_listings(page_soup)
-        progress_inner = manager.counter(total=len(listings_set), desc="Listings in page scraped", unit="listings", color="blue", leave=False)
+        progress_inner = enlighten_manager.counter(total=len(listings_set), desc="Listings scraped from page", unit="listings", color="blue", leave=False)
 
         print("\n[INFO] Processing page index {}: {}".format(page_index, new_url))
         print("[INFO] Found {} links in page index {}".format(jobCount, page_index))
