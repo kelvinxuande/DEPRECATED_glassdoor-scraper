@@ -25,11 +25,11 @@ Please refer to requirements.txt for list of requirements.
 4. Loop conditions control the 'movement' from result page-to-page.
 
 ## Definitions
+![](https://github.com/kelvinxuande/glassdoor-scraper/blob/master/docs/def-3.jpg)
+
 ![](https://github.com/kelvinxuande/glassdoor-scraper/blob/master/docs/def-1.jpg)
 
 ![](https://github.com/kelvinxuande/glassdoor-scraper/blob/master/docs/def-2.jpg)
-
-![](https://github.com/kelvinxuande/glassdoor-scraper/blob/master/docs/def-3.jpg)
 
 ## Running tests and deployment
 Original **configuration.json** file has been set to run tests.
