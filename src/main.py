@@ -67,6 +67,7 @@ if __name__ == "__main__":
 
     # initialise enlighten manager
     manager = enlighten.get_manager()
+    progress_outer = manager.counter(total=target_num, desc="Total Listings scraped", unit="TLP", color="green", leave=False)
 
     # initialise variables
     page_index = 1
@@ -82,7 +83,7 @@ if __name__ == "__main__":
         new_url = update_url(prev_url, page_index)
         page_soup,_ = requestAndParse(new_url)
         listings_set, jobCount = extract_listings(page_soup)
-        enlighten_progress = manager.counter(total=len(listings_set), desc="Listings processed", unit="LP", color="blue", leave=False)
+        progress_inner = manager.counter(total=len(listings_set), desc="Listings in page scraped", unit="listings", color="blue", leave=False)
 
         print("\n[INFO] Processing page index {}: {}".format(page_index, new_url))
         print("[INFO] Found {} links in page index {}".format(jobCount, page_index))
@@ -94,9 +95,9 @@ if __name__ == "__main__":
             returned_tuple = extract_listing(listing_url)
             list_returnedTuple.append(returned_tuple)
             # print(returned_tuple)
-            enlighten_progress.update()
+            progress_inner.update()
 
-        enlighten_progress.close()
+        progress_inner.close()
 
         fileWriter(listOfTuples=list_returnedTuple, output_fileName=output_fileName)
 
@@ -105,3 +106,6 @@ if __name__ == "__main__":
         print("[INFO] Finished processing page index {}; Total number of jobs processed: {}".format(page_index, total_listingCount))
         page_index = page_index + 1
         prev_url = new_url
+        progress_outer.update(jobCount)
+
+    progress_outer.close()
