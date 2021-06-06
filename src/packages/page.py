@@ -1,8 +1,10 @@
 # Import necessary libraries
-# standard libraries
 import re
-
-from packages.common import requestAndParse
+from time import time
+try:
+    from packages.common import requestAndParse
+except ModuleNotFoundError:
+    from common import requestAndParse
 
 
 # Function to acquire the maximum number of jobs, only applicable for the base/ first html
@@ -48,3 +50,22 @@ def extract_listings(page_soup):
         print("[ERROR] Assumptions invalid")
 
     return listings_set, jobCount
+
+
+if __name__ == "__main__":
+
+    url = "https://www.glassdoor.sg/Job/singapore-software-engineer-jobs-SRCH_IL.0,9_IC3235921_KO10,27_IP1.htm"
+    start_time = time()
+    maxJobs, maxPages = extract_maximums(url)
+    time_taken = time() - start_time
+    print("[INFO] Maximum number of jobs in range: {}, number of pages in range: {}".format(maxJobs, maxPages))
+    print("[INFO] returned in {} seconds".format(time_taken))
+
+    url = "https://www.glassdoor.sg/Job/singapore-software-engineer-jobs-SRCH_IL.0,9_IC3235921_KO10,27_IP1.htm"
+    start_time = time()
+    page_soup, requested_url = requestAndParse(url)
+    listings_set, jobCount = extract_listings(page_soup)
+    time_taken = time() - start_time
+    print(listings_set)
+    print(jobCount)
+    print("[INFO] returned in {} seconds".format(time_taken))
