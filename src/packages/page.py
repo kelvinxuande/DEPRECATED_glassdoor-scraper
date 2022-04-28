@@ -12,14 +12,16 @@ except ModuleNotFoundError:
 # extract maximum number of jobs stated, only applicable for the "base" url
 def extract_maximums(base_url):
     page_soup,_ = requestAndParse(base_url)
-    print(page_soup)
+
     tmp_match_1 = [item for item in page_soup.find_all("p") if "data-test" in item.attrs][0]
+    # Fixed the issue of the change of offset of item.attrs from [-1] to [-2] for pages
     tmp_match_2 = [item for item in page_soup.find_all("div") if "data-test" in item.attrs][-2]
     
     maxJobs_raw = tmp_match_1.get_text()    # e.g. 7,764 Jobs
     maxPages_raw = tmp_match_2.get_text()   # e.g. Page 1 of 30
 
     try:
+        # fixied the issue of "Assumptions invalid" given "Jobs" was changed to "jobs"
         assert "jobs" in maxJobs_raw
         assert "Page" in maxPages_raw
     except Exception as e:
