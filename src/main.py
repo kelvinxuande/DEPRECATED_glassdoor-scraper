@@ -50,7 +50,7 @@ def update_url(prev_url, page_index):
 
 
 if __name__ == "__main__":
-    base_url, target_num = load_configs(path="data\config.json")
+    base_url, target_num = load_configs(path=r"C:\Users\paulc\Documents\GitHub\glassdoor-scraper\src\data\config.json")
 
     # initialises output directory and file
     if not os.path.exists('output'):
