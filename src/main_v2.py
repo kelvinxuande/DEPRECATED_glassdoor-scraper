@@ -16,7 +16,7 @@ from packages.listing import extract_listing
 class glassdoor_scraper():
 
     def __init__(self) -> None:
-        base_url, target_num = self.load_configs(path=r"C:\Users\paulc\Documents\GitHub\glassdoor-scraper\src\data\config.json")
+        base_url, target_num = self.load_configs(path="config.json")
 
          # initialises output directory and file
         if not os.path.exists('output'):
