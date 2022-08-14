@@ -7,4 +7,4 @@
     - Loop page indices and query for the associated result page.
 3. For each result page, use HTML parser to extract all listing URLs.
 4. Loop and query each listing URL for its job listing page
-5. For each [listing page](https://github.com/kelvinxuande/glassdoor-scraper/blob/master/README.md#extracted-data), use HTML parser to extract desired information.
+5. For each [listing page](https://github.com/kelvinxuande/glassdoor-scraper#extracted-data), use HTML parser to extract desired information.
