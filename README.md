@@ -16,7 +16,7 @@ This project web scrapes the popular job listing site "Glassdoor" for informatio
 ## Purpose
 1. A means of collecting unstructured data of job descriptions provided in job listings.
    - Data collected can then be analysed and visualised to generate useful insights
-2. With some technical knowledge and [familiarity on how it works](https://github.com/kelvinxuande/glassdoor-scraper/master/docs/README.md#how-it-works), developers can:
+2. With some technical knowledge and [familiarity on how it works](https://github.com/kelvinxuande/glassdoor-scraper/blob/master/docs/README.md#how-it-works), developers can:
    - Modify the script to work for other job listing sites with similar layouts.
    - Incorporate this script into their own data science pipelines and workflows
 
