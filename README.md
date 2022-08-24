@@ -30,7 +30,7 @@ Refer to requirements.txt for a comprehensive list of requirements.
 3. Navigate to repository: `cd glassdoor-scraper/`
 4. Install prerequisites: `pip install -r requirements.txt`
 5. Navigate to entry-point: `cd src/`
-6. Run: `python main_v2.py`
+6. Run: `python main.py`
 7. Check for and verify the output csv, which can be found in the created `output/` directory
 5. Modify the **config.json** file as necessary for deployment.</br>
 
