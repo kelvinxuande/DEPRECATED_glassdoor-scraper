@@ -1,7 +1,10 @@
 # Import necessary libraries
 # standard libraries
+import argparse
 import json
 import os
+import sys
+from os.path import exists
 from datetime import datetime
 from time import time
 import csv
@@ -15,8 +18,18 @@ from packages.listing import extract_listing
 
 class glassdoor_scraper():
 
-    def __init__(self) -> None:
-        base_url, target_num = self.load_configs(path="config.json")
+    def __init__(self, configfile, baseurl, targetnum) -> None:
+
+        # load first
+        base_url, target_num = self.load_configs(path=configfile)
+        # overwrite those that are not none
+        if type(baseurl) != type(None):
+            base_url = baseurl
+            print("Using supplied baseurl")
+        if type(targetnum) != type(None):
+            target_num = targetnum
+            print("Using supplied targetnum")
+        print(configfile, baseurl, targetnum)
 
          # initialises output directory and file
         if not os.path.exists('output'):
@@ -112,5 +125,15 @@ class glassdoor_scraper():
         new_url = prev_url.replace(prev_substring, new_substring)
         return new_url
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-c', '--configfile', help="Specify location of json config file", type=str, required=False, default="config.json")
+    parser.add_argument('-b', '--baseurl', help="Base_url to use. Overwrites config file", type=str, required=False, default=None)
+    parser.add_argument('-tn', '--targetnum', help="Target number to scrape. Overwrites config file", type=int, required=False, default=None)
+    args = vars(parser.parse_args())
 
-scrape = glassdoor_scraper()
+    glassdoor_scraper( 
+        configfile=args["configfile"],
+        baseurl=args["baseurl"],
+        targetnum=args["targetnum"]
+        )
